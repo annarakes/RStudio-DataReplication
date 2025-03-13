@@ -1,0 +1,808 @@
+
+> # R version
+> R.version.string
+[1] "R version 4.2.2 (2022-10-31 ucrt)"
+
+> ## Warning: Must install tidyverse package prior to running code
+> 
+> #### Project Code ####
+> 
+> ## 0 Load data and check metadata
+> 
+> family12 <- .... [TRUNCATED] 
+
+> comment(family12)
+[1] "Dataset with select observations and variables\n/ arakes-repl-data1.R / AMR / 2024-01-14"
+[2] "Updated data with dummy variables / arakes-repl-data2.R / AMR / 2024-01-16"              
+[3] "Updated data with family variables recoded / arakes-repl-data3.R / AMR / 2024-01-16"     
+[4] "Updated data with nuclear family index / arakes-repl-data4.R / AMR / 2024-01-17"         
+[5] "Final dataset with extended family variable / arakes-repl-data5.R / AMR / 2024-01-17"    
+
+> library(tidyverse)
+
+> ## 1 Father Descriptive Stats by variables
+> 
+> mean(family12$pavisit2, na.rm = TRUE)
+[1] 3.084112
+
+> sd(family12$pavisit2, na.rm = TRUE)
+[1] 1.699975
+
+> ## 1a Race
+> stats0 <- select(family12, pavisit2, hispanicB)
+
+> stats0_drop <- stats0 %>% 
++   drop_na(pavisit2)
+
+> prop.table(table(stats0_drop$hispanicB))
+
+        0         1         2 
+0.0411215 0.8242991 0.1345794 
+
+> stats1 <- select(family12, pavisit2, whiteB)
+
+> prop.table(table(stats1$whiteB))
+
+        0         1 
+0.1601098 0.8398902 
+
+> stats2 <- select(family12, pavisit2, blackB)
+
+> prop.table(table(stats2$blackB))
+
+        0         1 
+0.8673376 0.1326624 
+
+> ## 1b Geo Mob
+> stats3 <- select(family12, pavisit2, diffcityB)
+
+> stats3_drop <- stats3 %>% 
++   drop_na(pavisit2)
+
+> prop.table(table(stats3_drop$diffcityB))
+
+        0         1 
+0.7345794 0.2654206 
+
+> stats4 <- select(family12, pavisit2, diffstateB)
+
+> stats4_drop <- stats4 %>% 
++   drop_na(pavisit2)
+
+> prop.table(table(stats4_drop$diffstateB))
+
+       0        1 
+0.728972 0.271028 
+
+> ## 1c Sex
+> stats5 <- select(family12, pavisit2, femaleB)
+
+> stats5_drop <- stats5 %>% 
++   drop_na(pavisit2)
+
+> prop.table(table(stats5_drop$femaleB))
+
+        0         1 
+0.5121495 0.4878505 
+
+> ## 1d Age
+> stats6 <- select(family12, pavisit2, age)
+
+> stats6_drop <- stats6 %>% 
++   drop_na(pavisit2)
+
+> stats6_num <- as.data.frame(apply(stats6_drop, 2, as.numeric)) 
+
+> mean(stats6_num$age, na.rm = TRUE)
+[1] 35.11215
+
+> sd(stats6_num$age, na.rm = TRUE)
+[1] 10.68227
+
+> ## 1e Marital Status
+> stats7 <- select(family12, pavisit2, marriedB)
+
+> stats7_drop <- stats7 %>% 
++   drop_na(pavisit2)
+
+> prop.table(table(stats7_drop$marriedB))
+
+        0         1 
+0.3906542 0.6093458 
+
+> ## 1f Education
+> stats8 <- select(family12, pavisit2, educ)
+
+> stats8_drop <- stats8 %>% 
++   drop_na(pavisit2)
+
+> stats8_num <- as.data.frame(apply(stats8_drop, 2, as.numeric)) 
+
+> mean(stats8_num$educ, na.rm = TRUE) 
+[1] 13.61308
+
+> sd(stats8_num$educ, na.rm = TRUE)
+[1] 2.695852
+
+> ## 1g Income
+> stats9 <- select(family12, pavisit2, RINCOM98)
+
+> stats9_drop <- stats9 %>% 
++   drop_na(pavisit2)
+
+> stats9_num <- as.data.frame(apply(stats9_drop, 2, as.numeric)) 
+
+> mean(stats9_num$RINCOM98, na.rm = TRUE)
+[1] 13.84149
+
+> sd(stats9_num$RINCOM98, na.rm = TRUE)
+[1] 5.376311
+
+> ## 2 Mother Descriptive Stats by Variables
+> 
+> mean(family12$mavisit2, na.rm = TRUE)
+[1] 3.671429
+
+> sd(family12$mavisit2, na.rm = TRUE)
+[1] 1.67726
+
+> ## 2a Race
+> stats10a <- select(family12, mavisit2, hispanicB)
+
+> stats10_drop <- stats10a %>% 
++   drop_na(mavisit2)
+
+> prop.table(table(stats10_drop$hispanicB))
+
+         0          1          2 
+0.03571429 0.82857143 0.13571429 
+
+> stats10b <- select(family12, mavisit2, whiteB)
+
+> prop.table(table(stats10b$whiteB))
+
+        0         1 
+0.1601098 0.8398902 
+
+> stats10c <- select(family12, mavisit2, blackB)
+
+> prop.table(table(stats10c$blackB))
+
+        0         1 
+0.8673376 0.1326624 
+
+> ## 2b Geo Mob
+> stats11 <- family12 %>%
++   select(mavisit2, diffcityB) %>%
++   drop_na(mavisit2)
+
+> prop.table(table(stats11$diffcityB))
+
+        0         1 
+0.7357143 0.2642857 
+
+> stats12 <- family12 %>%
++   select(mavisit2, diffstateB) %>%
++   drop_na(mavisit2)
+
+> prop.table(table(stats12$diffstateB))
+
+        0         1 
+0.7271429 0.2728571 
+
+> ## 2c Sex
+> stats13 <- family12 %>%
++   select(mavisit2, femaleB) %>%
++   drop_na(mavisit2)
+
+> prop.table(table(stats13$femaleB))
+
+        0         1 
+0.4914286 0.5085714 
+
+> ## 2d Age
+> stats14 <- family12 %>%
++   select(mavisit2, age) %>%
++   drop_na(mavisit2)
+
+> stats14_num <- as.data.frame(apply(stats14, 2, as.numeric)) 
+
+> mean(stats14_num$age, na.rm = TRUE)
+[1] 37.55429
+
+> sd(stats14_num$age, na.rm = TRUE)
+[1] 12.15935
+
+> ## 2e Marital Status
+> stats15 <- family12 %>%
++   select(mavisit2, marriedB) %>%
++   drop_na(mavisit2)
+
+> prop.table(table(stats15$marriedB))
+
+        0         1 
+0.3671429 0.6328571 
+
+> ## 2f Education
+> stats16 <- family12 %>%
++   select(mavisit2, educ) %>%
++   drop_na(mavisit2)
+
+> stats16_num <- as.data.frame(apply(stats16, 2, as.numeric)) 
+
+> mean(stats16_num$educ, na.rm = TRUE)
+[1] 13.58571
+
+> sd(stats16_num$educ, na.rm = TRUE)
+[1] 2.68676
+
+> ## 2g Income
+> stats17 <- family12 %>%
++   select(mavisit2, RINCOM98) %>%
++   drop_na(mavisit2)
+
+> stats17_num <- as.data.frame(apply(stats17, 2, as.numeric)) 
+
+> mean(stats17_num$RINCOM98, na.rm = TRUE)
+[1] 13.87319
+
+> sd(stats17_num$RINCOM98, na.rm = TRUE)
+[1] 5.562567
+
+> ## 3 Sibling Descriptive Stats by Variables
+> 
+> mean(family12$sibvisit2, na.rm = TRUE)
+[1] 3.060373
+
+> sd(family12$sibvisit2, na.rm = TRUE)
+[1] 1.597966
+
+> ## 3a Race
+> stats18a <- select(family12, sibvisit2, hispanicB)
+
+> stats18a_drop <- stats18a %>% 
++   drop_na(sibvisit2)
+
+> prop.table(table(stats18a_drop$hispanicB))
+
+         0          1          2 
+0.03183315 0.82656422 0.14160263 
+
+> stats18b <- select(family12, sibvisit2, whiteB)
+
+> prop.table(table(stats18b$whiteB))
+
+        0         1 
+0.1601098 0.8398902 
+
+> stats18c <- select(family12, sibvisit2, blackB)
+
+> prop.table(table(stats18c$blackB))
+
+        0         1 
+0.8673376 0.1326624 
+
+> ## 3b Geo Mob
+> stats19 <- family12 %>%
++   select(sibvisit2, diffcityB) %>%
++   drop_na(sibvisit2)
+
+> prop.table(table(stats19$diffcityB))
+
+        0         1 
+0.7244786 0.2755214 
+
+> stats20 <- family12 %>%
++   select(sibvisit2, diffstateB) %>%
++   drop_na(sibvisit2)
+
+> prop.table(table(stats20$diffstateB))
+
+       0        1 
+0.701427 0.298573 
+
+> ## 3c Sex
+> stats21 <- family12 %>%
++   select(sibvisit2, femaleB) %>%
++   drop_na(sibvisit2)
+
+> prop.table(table(stats21$femaleB))
+
+        0         1 
+0.4895719 0.5104281 
+
+> ## 3d Age
+> stats22 <- family12 %>%
++   select(sibvisit2, age) %>%
++   drop_na(sibvisit2)
+
+> stats22_num <- as.data.frame(apply(stats22, 2, as.numeric)) 
+
+> mean(stats22_num$age, na.rm = TRUE)
+[1] 45.23271
+
+> sd(stats22_num$age, na.rm = TRUE)
+[1] 16.54885
+
+> ## 3e Marital Status
+> stats23 <- family12 %>%
++   select(sibvisit2, marriedB) %>%
++   drop_na(sibvisit2)
+
+> prop.table(table(stats23$marriedB))
+
+        0         1 
+0.2777168 0.7222832 
+
+> ## 3f Education
+> stats24 <- family12 %>%
++   select(sibvisit2, educ) %>%
++   drop_na(sibvisit2)
+
+> stats24_num <- as.data.frame(apply(stats24, 2, as.numeric)) 
+
+> mean(stats24_num$educ, na.rm = TRUE)
+[1] 13.40484
+
+> sd(stats24_num$educ, na.rm = TRUE)
+[1] 2.946479
+
+> ## 3g Income
+> stats25 <- family12 %>%
++   select(sibvisit2, RINCOM98) %>%
++   drop_na(sibvisit2)
+
+> stats25_num <- as.data.frame(apply(stats25, 2, as.numeric)) 
+
+> mean(stats25_num$RINCOM98, na.rm = TRUE)
+[1] 14.1092
+
+> sd(stats25_num$RINCOM98, na.rm = TRUE)
+[1] 5.651929
+
+> ## 4 Adult Kid Descriptive Stats by Variables
+> 
+> mean(family12$kidvisit2, na.rm = TRUE)
+[1] 4.244131
+
+> sd(family12$kidvisit2, na.rm = TRUE)
+[1] 1.606319
+
+> ## 4a Race
+> stats26a <- select(family12, kidvisit2, hispanicB)
+
+> stats26a_drop <- stats26a %>% 
++   drop_na(kidvisit2)
+
+> prop.table(table(stats26a_drop$hispanicB))
+
+         0          1          2 
+0.01408451 0.86619718 0.11971831 
+
+> stats26b <- select(family12, kidvisit2, whiteB)
+
+> prop.table(table(stats26b$whiteB))
+
+        0         1 
+0.1601098 0.8398902 
+
+> stats26c <- select(family12, kidvisit2, blackB)
+
+> prop.table(table(stats26c$blackB))
+
+        0         1 
+0.8673376 0.1326624 
+
+> ## 4b Geo Mob
+> stats27 <- family12 %>%
++   select(kidvisit2, diffcityB) %>%
++   drop_na(kidvisit2)
+
+> prop.table(table(stats27$diffcityB))
+
+        0         1 
+0.7370892 0.2629108 
+
+> stats28 <- family12 %>%
++   select(kidvisit2, diffstateB) %>%
++   drop_na(kidvisit2)
+
+> prop.table(table(stats28$diffstateB))
+
+        0         1 
+0.6690141 0.3309859 
+
+> ## 4c Sex
+> stats29 <- family12 %>%
++   select(kidvisit2, femaleB) %>%
++   drop_na(kidvisit2)
+
+> prop.table(table(stats29$femaleB))
+
+        0         1 
+0.4483568 0.5516432 
+
+> ## 4d Age
+> stats30 <- family12 %>%
++   select(kidvisit2, age) %>%
++   drop_na(kidvisit2)
+
+> stats30_num <- as.data.frame(apply(stats30, 2, as.numeric)) 
+
+> mean(stats30_num$age, na.rm = TRUE)
+[1] 59.80047
+
+> sd(stats30_num$age, na.rm = TRUE)
+[1] 12.73236
+
+> ## 4e Marital Status
+> stats31 <- family12 %>%
++   select(kidvisit2, marriedB) %>%
++   drop_na(kidvisit2)
+
+> prop.table(table(stats31$marriedB))
+
+         0          1 
+0.03286385 0.96713615 
+
+> ## 4f Education
+> stats32 <- family12 %>%
++   select(kidvisit2, educ) %>%
++   drop_na(kidvisit2)
+
+> stats32_num <- as.data.frame(apply(stats32, 2, as.numeric)) 
+
+> mean(stats32_num$educ, na.rm = TRUE)
+[1] 13.03302
+
+> sd(stats32_num$educ, na.rm = TRUE)
+[1] 3.243301
+
+> ## 4g Income
+> stats33 <- family12 %>%
++   select(kidvisit2, RINCOM98) %>%
++   drop_na(kidvisit2)
+
+> stats33_num <- as.data.frame(apply(stats33, 2, as.numeric)) 
+
+> mean(stats33_num$RINCOM98, na.rm = TRUE)
+[1] 14.67364
+
+> sd(stats33_num$RINCOM98, na.rm = TRUE)
+[1] 5.814551
+
+> ## 5 aunt/uncle Descriptive Stats by Variables
+> 
+> mean(family12$uncaunts2, na.rm = TRUE)
+[1] 1.684268
+
+> sd(family12$uncaunts2, na.rm = TRUE)
+[1] 0.785598
+
+> ## 5a Race
+> stats34a <- select(family12, uncaunts2, hispanicB)
+
+> stats34a_drop <- stats34a %>% 
++   drop_na(uncaunts2)
+
+> prop.table(table(stats34a_drop$hispanicB))
+
+         0          1          2 
+0.02970297 0.83718372 0.13311331 
+
+> stats34b <- select(family12, uncaunts2, whiteB)
+
+> prop.table(table(stats34b$whiteB))
+
+        0         1 
+0.1601098 0.8398902 
+
+> stats34c <- select(family12, uncaunts2, blackB)
+
+> prop.table(table(stats34c$blackB))
+
+        0         1 
+0.8673376 0.1326624 
+
+> ## 5b Geo Mob
+> stats35 <- family12 %>%
++   select(uncaunts2, diffcityB) %>%
++   drop_na(uncaunts2)
+
+> prop.table(table(stats35$diffcityB))
+
+        0         1 
+0.7315732 0.2684268 
+
+> stats36 <- family12 %>%
++   select(uncaunts2, diffstateB) %>%
++   drop_na(uncaunts2)
+
+> prop.table(table(stats36$diffstateB))
+
+        0         1 
+0.7084708 0.2915292 
+
+> ## 5c Sex
+> stats37 <- family12 %>%
++   select(uncaunts2, femaleB) %>%
++   drop_na(uncaunts2)
+
+> prop.table(table(stats37$femaleB))
+
+        0         1 
+0.4873487 0.5126513 
+
+> ## 5d Age
+> stats38 <- family12 %>%
++   select(uncaunts2, age) %>%
++   drop_na(uncaunts2)
+
+> stats38_num <- as.data.frame(apply(stats38, 2, as.numeric)) 
+
+> mean(stats38_num$age, na.rm = TRUE)
+[1] 41.9648
+
+> sd(stats38_num$age, na.rm = TRUE)
+[1] 14.66321
+
+> ## 5e Marital Status
+> stats39 <- family12 %>%
++   select(uncaunts2, marriedB) %>%
++   drop_na(uncaunts2)
+
+> prop.table(table(stats39$marriedB))
+
+        0         1 
+0.3157316 0.6842684 
+
+> ## 5f Education
+> stats40 <- family12 %>%
++   select(uncaunts2, educ) %>%
++   drop_na(uncaunts2)
+
+> stats40_num <- as.data.frame(apply(stats40, 2, as.numeric)) 
+
+> mean(stats40_num$educ, na.rm = TRUE)
+[1] 13.53905
+
+> sd(stats40_num$educ, na.rm = TRUE)
+[1] 2.888124
+
+> ## 5g Income
+> stats41 <- family12 %>%
++   select(uncaunts2, RINCOM98) %>%
++   drop_na(uncaunts2)
+
+> stats41_num <- as.data.frame(apply(stats41, 2, as.numeric)) 
+
+> mean(stats41_num$RINCOM98, na.rm = TRUE)
+[1] 14.11193
+
+> sd(stats41_num$RINCOM98, na.rm = TRUE)
+[1] 5.608871
+
+> ## 6 niece/nephew Descriptive Stats by Variables
+> 
+> mean(family12$niecenep2, na.rm = TRUE)
+[1] 1.997872
+
+> sd(family12$niecenep2, na.rm = TRUE)
+[1] 0.8534811
+
+> ## 6a Race
+> stats42a <- select(family12, niecenep2, hispanicB)
+
+> stats42a_drop <- stats42a %>% 
++   drop_na(niecenep2)
+
+> prop.table(table(stats42a_drop$hispanicB))
+
+         0          1          2 
+0.02765957 0.83829787 0.13404255 
+
+> stats42b <- select(family12, niecenep2, whiteB)
+
+> prop.table(table(stats42b$whiteB))
+
+        0         1 
+0.1601098 0.8398902 
+
+> stats42c <- select(family12, niecenep2, blackB)
+
+> prop.table(table(stats42c$blackB))
+
+        0         1 
+0.8673376 0.1326624 
+
+> ## 6b Geo Mob
+> stats43 <- family12 %>%
++   select(niecenep2, diffcityB) %>%
++   drop_na(niecenep2)
+
+> prop.table(table(stats43$diffcityB))
+
+        0         1 
+0.7361702 0.2638298 
+
+> stats44 <- family12 %>%
++   select(niecenep2, diffstateB) %>%
++   drop_na(niecenep2)
+
+> prop.table(table(stats44$diffstateB))
+
+        0         1 
+0.6957447 0.3042553 
+
+> ## 6c Sex
+> stats45 <- family12 %>%
++   select(niecenep2, femaleB) %>%
++   drop_na(niecenep2)
+
+> prop.table(table(stats45$femaleB))
+
+        0         1 
+0.4797872 0.5202128 
+
+> ## 6d Age
+> stats46 <- family12 %>%
++   select(niecenep2, age) %>%
++   drop_na(niecenep2)
+
+> stats46_num <- as.data.frame(apply(stats46, 2, as.numeric)) 
+
+> mean(stats46_num$age, na.rm = TRUE)
+[1] 47.46702
+
+> sd(stats46_num$age, na.rm = TRUE)
+[1] 16.59279
+
+> ## 6e Marital Status
+> stats47 <- family12 %>%
++   select(niecenep2, marriedB) %>%
++   drop_na(niecenep2)
+
+> prop.table(table(stats47$marriedB))
+
+        0         1 
+0.2308511 0.7691489 
+
+> ## 6f Education
+> stats48 <- family12 %>%
++   select(niecenep2, educ) %>%
++   drop_na(niecenep2)
+
+> stats48_num <- as.data.frame(apply(stats48, 2, as.numeric)) 
+
+> mean(stats48_num$educ, na.rm = TRUE)
+[1] 13.32729
+
+> sd(stats48_num$educ, na.rm = TRUE)
+[1] 2.956555
+
+> ## 6g Income
+> stats49 <- family12 %>%
++   select(niecenep2, RINCOM98) %>%
++   drop_na(niecenep2)
+
+> stats49_num <- as.data.frame(apply(stats49, 2, as.numeric)) 
+
+> mean(stats49_num$RINCOM98, na.rm = TRUE)
+[1] 14.20126
+
+> sd(stats49_num$RINCOM98, na.rm = TRUE)
+[1] 5.629819
+
+> ## 7 cousins Descriptive Stats by Variablees
+> 
+> mean(family12$cousins2, na.rm = TRUE)
+[1] 1.66474
+
+> sd(family12$cousins2, na.rm = TRUE)
+[1] 0.7961633
+
+> ## 7a Race
+> stats50a <- select(family12, cousins2, hispanicB)
+
+> stats50a_drop <- stats50a %>% 
++   drop_na(cousins2)
+
+> prop.table(table(stats50a_drop$hispanicB))
+
+         0          1          2 
+0.02793834 0.84104046 0.13102119 
+
+> stats50b <- select(family12, cousins2, whiteB)
+
+> prop.table(table(stats50b$whiteB))
+
+        0         1 
+0.1601098 0.8398902 
+
+> stats50c <- select(family12, cousins2, blackB)
+
+> prop.table(table(stats50c$blackB))
+
+        0         1 
+0.8673376 0.1326624 
+
+> ## 7b Geo Mob
+> stats51 <- family12 %>%
++   select(cousins2, diffcityB) %>%
++   drop_na(cousins2)
+
+> prop.table(table(stats51$diffcityB))
+
+        0         1 
+0.7379576 0.2620424 
+
+> stats52 <- family12 %>%
++   select(cousins2, diffstateB) %>%
++   drop_na(cousins2)
+
+> prop.table(table(stats52$diffstateB))
+
+        0         1 
+0.6917148 0.3082852 
+
+> ## 7c Sex
+> stats53 <- family12 %>%
++   select(cousins2, femaleB) %>%
++   drop_na(cousins2)
+
+> prop.table(table(stats53$femaleB))
+
+        0         1 
+0.4884393 0.5115607 
+
+> ## 7d Age
+> stats54 <- family12 %>%
++   select(cousins2, age) %>%
++   drop_na(cousins2)
+
+> stats54_num <- as.data.frame(apply(stats54, 2, as.numeric)) 
+
+> mean(stats54_num$age, na.rm = TRUE)
+[1] 45.09923
+
+> sd(stats54_num$age, na.rm = TRUE)
+[1] 16.69156
+
+> ## 7e Marital Status
+> stats55 <- family12 %>%
++   select(cousins2, marriedB) %>%
++   drop_na(cousins2)
+
+> prop.table(table(stats55$marriedB))
+
+        0         1 
+0.2928709 0.7071291 
+
+> ## 7f Education
+> stats56 <- family12 %>%
++   select(cousins2, educ) %>%
++   drop_na(cousins2)
+
+> stats56_num <- as.data.frame(apply(stats56, 2, as.numeric)) 
+
+> mean(stats56_num$educ, na.rm = TRUE)
+[1] 13.4605
+
+> sd(stats56_num$educ, na.rm = TRUE)
+[1] 2.993384
+
+> ## 7g Income
+> stats57 <- family12 %>%
++   select(cousins2, RINCOM98) %>%
++   drop_na(cousins2)
+
+> stats57_num <- as.data.frame(apply(stats57, 2, as.numeric)) 
+
+> mean(stats57_num$RINCOM98, na.rm = TRUE)
+[1] 14.05939
+
+> sd(stats57_num$RINCOM98, na.rm = TRUE)
+[1] 5.655442
+
+> # close log
+> sink()

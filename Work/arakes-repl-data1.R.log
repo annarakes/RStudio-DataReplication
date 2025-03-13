@@ -1,0 +1,149 @@
+
+> # R version
+> R.version.string
+[1] "R version 4.2.2 (2022-10-31 ucrt)"
+
+> ## Warning: Must install tidyverse package prior to running code
+> 
+> #### Project Code ####
+> 
+> ## 0 Load data and check metadata
+> 
+> og_data <-  .... [TRUNCATED] 
+
+> comment(og_data) 
+[1] "compressed original GSS data / NWB / 2022-01-11"
+
+> library(tidyverse)
+
+> ## 1 Select observations
+> 
+> family01 <- og_data %>%
++   filter(year == "2002")
+
+> ## 2 Select variables
+> 
+> family02 <- family01 %>%
++   select(year, wtssall, RACECEN1, RACECEN2, RACECEN3, age, sibvisit,
++          kidvisit, PAVI .... [TRUNCATED] 
+
+> ## 3 Subset age 
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-16
+> # Filename: arakes-repl-data2.R
+> 
+> 
+> #### Setup ####
+> 
+> rm(list=ls())
+
+> options(width = 80)
+
+> filename <-"arakes-repl-data2.R"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output
+
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-16
+> # Filename: arakes-repl-data3.R
+> 
+> 
+> #### Setup ####
+> 
+> rm(list=ls())
+
+> options(width = 80)
+
+> filename <-"arakes-repl-data3.R"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output
+
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-16
+> # Filename: arakes-repl-data4.R
+> 
+> 
+> #### Setup ####
+> 
+> rm(list=ls())
+
+> options(width = 80)
+
+> filename <-"arakes-repl-data4.R"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output
+
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-17
+> # Filename: arakes-repl-data5.R
+> 
+> 
+> #### Setup ####
+> 
+> rm(list=ls())
+
+> options(width = 80)
+
+> filename <-"arakes-repl-data5.R"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output
+
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-18
+> # Filename: arakes-repl-analysis1.R
+> 
+> 
+> #### Setup ####
+> 
+> rm(list=ls())
+
+> options(width = 80)
+
+> filename <-"arakes-repl-analysis1.R"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output
+
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-18
+> # Filename: arakes-repl-analysis2.R
+> 
+> 
+> #### Setup ####
+> 
+> rm(list=ls())
+
+> options(width = 80)
+
+> filename <-"arakes-repl-analysis2.R"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output
+
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-18
+> # Filename: arakes-repl-analysis3.R
+> 
+> 
+> #### Setup ####
+> 
+> rm(list=ls())
+
+> options(width = 80)
+
+> filename <-"arakes-repl-analysis3.R"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output
+
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-18
+> # Filename: arakes-repl-analysis4.R
+> 
+> 
+> #### Setup ####
+> 
+> rm(list=ls())
+
+> options(width = 80)
+
+> filename <-"arakes-repl-analysis4.R"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output

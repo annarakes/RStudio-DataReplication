@@ -1,0 +1,26 @@
+[1] "R version 4.2.2 (2022-10-31 ucrt)"
+NULL
+
+> #### Metadata ####
+> 
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-11
+> # Filename: arakes-dataset01-labor
+> 
+> # Assignment 05: Saving  .... [TRUNCATED] 
+
+> filename <-"arakes-dataset01-labor"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output
+
+> #### Metadata ####
+> 
+> # Code written by: Anna Rakes
+> # Last Update: 2024-01-11
+> # Filename: arakes-dataset01-laborV2
+> 
+> # Assignment 05: Savin .... [TRUNCATED] 
+
+> filename <-"arakes-dataset01-laborV2"
+
+> sink(paste(filename, ".log", sep = "")) # create log file to store output

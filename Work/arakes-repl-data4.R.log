@@ -1,0 +1,68 @@
+
+> # R version
+> R.version.string
+[1] "R version 4.2.2 (2022-10-31 ucrt)"
+
+> ## Warning: Must install tidyverse package prior to running code
+> 
+> #### Project Code ####
+> 
+> ## 0 Load data and check metadata
+> 
+> family08 <- .... [TRUNCATED] 
+
+> comment(family08)
+[1] "Dataset with select observations and variables\n/ arakes-repl-data1.R / AMR / 2024-01-14"
+[2] "Updated data with dummy variables / arakes-repl-data2.R / AMR / 2024-01-16"              
+[3] "Updated data with family variables recoded / arakes-repl-data3.R / AMR / 2024-01-16"     
+
+> library(tidyverse)
+
+> ## 1 Create Entire Family Index
+> 
+> family09 <- mutate(family08, wholefam = rowMeans(select(family08, kidvisit2:uncaunts2), na.rm = TRUE))
+
+> family10 <- family09 %>% 
++   drop_na(wholefam)
+
+> ## 2 Create Nuclear family index
+> 
+> 
+> family11 <- mutate(family10, nucfamily = rowMeans(select(family10, kidvisit2:mavisit2), na.rm = TRUE))
+
+> ## 3 Internal documentation - add metadata
+> 
+> comment(family11$wholefam) <- "Average of all family variables / arakes-repl-data4.R / AMR / 2024-01 ..." ... [TRUNCATED] 
+
+> comment(family11$nucfamily) <- "Average of nuclear family variable / arakes-repl-data4.R / AMR / 2024-01-17"
+
+> comment(family11) <- c(comment(family11), 
++                          "Updated data with nuclear family index / arakes-repl-data4.R / AMR / 2024-01- ..." ... [TRUNCATED] 
+
+> ## 4 Run diagnostics
+> 
+> table(family11$nucfamily)
+
+               1             1.25 1.33333333333333              1.5 
+              68                1               12               25 
+1.66666666666667             1.75                2             2.25 
+              23                1              113                3 
+2.33333333333333              2.5 2.66666666666667             2.75 
+              25               44               48                5 
+               3             3.25 3.33333333333333              3.5 
+             109                5               37               64 
+3.66666666666667             3.75                4             4.25 
+              41                3              147                3 
+4.33333333333333              4.5 4.66666666666667             4.75 
+              35               37               32                2 
+               5 5.33333333333333              5.5 5.66666666666667 
+              74               16               22                7 
+               6 
+              68 
+
+> ## 5 Save the data
+> 
+> saveRDS(family11, "arakes-repl-data5.RDS")
+
+> # close log
+> sink()

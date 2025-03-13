@@ -1,0 +1,120 @@
+
+> # R version
+> R.version.string
+[1] "R version 4.2.2 (2022-10-31 ucrt)"
+
+> ## Warning: Must install tidyverse package prior to running code
+> 
+> #### Project Code ####
+> 
+> ## 0 Load data and check metadata
+> 
+> family06 <- .... [TRUNCATED] 
+
+> comment(family06)
+[1] "Dataset with select observations and variables\n/ arakes-repl-data1.R / AMR / 2024-01-14"
+
+> library(tidyverse)
+
+> ## 1 Create race dummy variables and overall race variable
+> 
+> family06$whiteB <- ifelse(family06$RACECEN1 == "1", 1,
++                           i .... [TRUNCATED] 
+
+> family06$blackB <- ifelse(family06$RACECEN1 == "2", 1,
++                           ifelse(family06$RACECEN1 == "16", 0,
++                            .... [TRUNCATED] 
+
+> family06$hispanicB <- ifelse(family06$RACECEN1 == "1", 1,
++                           ifelse(family06$RACECEN1 == "2", 2,
++                          .... [TRUNCATED] 
+
+> ## 2 Create sex dummy variable
+> 
+> family06$femaleB <- ifelse(family06$sex == "2", 1, 0 )
+
+> ## 3 Create marital dummy variable
+> 
+> family06$marriedB <- ifelse(family06$marital == "1" | 
++                               family06$marital == " ..." ... [TRUNCATED] 
+
+> ## 4 Create geo mob dummy variables
+> 
+> family06$diffcityB <- ifelse(family06$MOBILE16 == "2", 1, 0)
+
+> family06$diffstateB <- ifelse(family06$MOBILE16 == "3", 1, 0)
+
+> ## 5 Internal Documentation
+> 
+> comment(family06$whiteB) <-
++   "dummy variable for white or hispanic / arakes-repl-data2.R / AMR / 2024-01-16"
+
+> comment(family06$blackB) <-
++   "dummy variables for black or hispanic / arakes-repl-data2.R / AMR / 2024-01-16"
+
+> comment(family06$hispanicB) <-
++   "race variable with white, black, hispanic / arakes-repl-data2.R / AMR / 2024-01-16"
+
+> comment(family06$femaleB) <-
++   "dummy variable for sex / arakes-repl-data2.R / AMR / 2024-01-16"
+
+> comment(family06$marriedB) <-
++   "dummy variable for marriage status / arakes-repl-data2.R / AMR / 2024-01-16"
+
+> comment(family06$diffcityB) <-
++   "same state diff city dummy variable / arakes-repl-data2.R / AMR / 2024-01-16"
+
+> comment(family06$diffstateB) <-
++   "different city dummy variable / arakes-repl-data2.R / AMR / 2024-01-16"
+
+> comment(family06) <- c(comment(family06), 
++                          "Updated data with dummy variables / arakes-repl-data2.R / AMR / 2024-01-16")
+
+> ## 6 Run Diagnostics comparing original variables to new dummy variables
+> 
+> table(family06$whiteB)
+
+   0    1 
+ 473 2158 
+
+> table(family06$blackB)
+
+   0    1 
+2232  399 
+
+> table(family06$hispanicB)
+
+   0    1    2 
+  74 2158  399 
+
+> table(family06$marital)
+
+   1    2    3    4    5 
+1207  243  424   91  666 
+
+> table(family06$marriedB)
+
+   0    1 
+ 666 1965 
+
+> table(family06$MOBILE16)
+
+  .n    1    2    3 
+   1 1125  671  834 
+
+> table(family06$diffcityB)
+
+   0    1 
+1960  671 
+
+> table(family06$diffstateB)
+
+   0    1 
+1797  834 
+
+> ## 7 Save New dataset
+> 
+> saveRDS(family06, "arakes-repl-data3.RDS") # as RDS
+
+> # close log
+> sink()

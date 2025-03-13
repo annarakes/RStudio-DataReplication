@@ -1,0 +1,335 @@
+
+> # R version
+> R.version.string
+[1] "R version 4.2.2 (2022-10-31 ucrt)"
+
+> #### Project Code ####
+> 
+> ## 0 Load data and check metadata
+> 
+> family12 <- readRDS(file = "arakes-repl-data6.RDS")
+
+> comment(family12)
+[1] "Dataset with select observations and variables\n/ arakes-repl-data1.R / AMR / 2024-01-14"
+[2] "Updated data with dummy variables / arakes-repl-data2.R / AMR / 2024-01-16"              
+[3] "Updated data with family variables recoded / arakes-repl-data3.R / AMR / 2024-01-16"     
+[4] "Updated data with nuclear family index / arakes-repl-data4.R / AMR / 2024-01-17"         
+[5] "Final dataset with extended family variable / arakes-repl-data5.R / AMR / 2024-01-17"    
+
+> ## 1 Nuclear family index regression model
+> nucmod <- lm(nucfamily ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age + m .... [TRUNCATED] 
+
+> summary(nucmod)
+
+Call:
+lm(formula = nucfamily ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2123 -0.7977 -0.0540  0.7629  3.6449 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.209772   0.333751  12.613  < 2e-16 ***
+whiteB       0.125206   0.245781   0.509 0.610612    
+blackB       0.446825   0.267815   1.668 0.095668 .  
+diffcityB   -0.500562   0.106765  -4.688 3.29e-06 ***
+diffstateB  -1.316257   0.107827 -12.207  < 2e-16 ***
+femaleB     -0.028569   0.089871  -0.318 0.750661    
+age          0.003908   0.003738   1.045 0.296157    
+marriedB    -0.412767   0.107467  -3.841 0.000133 ***
+educ        -0.022551   0.017257  -1.307 0.191710    
+RINCOM98    -0.001188   0.008727  -0.136 0.891742    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.167 on 722 degrees of freedom
+  (361 observations deleted due to missingness)
+Multiple R-squared:  0.2265,	Adjusted R-squared:  0.2169 
+F-statistic:  23.5 on 9 and 722 DF,  p-value: < 2.2e-16
+
+
+> ## 2 Extended family index regression model
+> extmod <- lm(extfamily ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age +  .... [TRUNCATED] 
+
+> summary(extmod)
+
+Call:
+lm(formula = extfamily ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3976 -0.5198 -0.0261  0.4307  1.5164 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  2.4066346  0.1737291  13.853  < 2e-16 ***
+whiteB      -0.2842619  0.1285937  -2.211   0.0274 *  
+blackB       0.1432212  0.1403711   1.020   0.3079    
+diffcityB   -0.1331295  0.0557462  -2.388   0.0172 *  
+diffstateB  -0.2556606  0.0557906  -4.583  5.4e-06 ***
+femaleB      0.0091475  0.0466511   0.196   0.8446    
+age         -0.0044192  0.0019309  -2.289   0.0224 *  
+marriedB    -0.0257601  0.0553142  -0.466   0.6416    
+educ        -0.0047198  0.0088612  -0.533   0.5944    
+RINCOM98     0.0003148  0.0045150   0.070   0.9444    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.6105 on 730 degrees of freedom
+  (353 observations deleted due to missingness)
+Multiple R-squared:  0.1148,	Adjusted R-squared:  0.1039 
+F-statistic: 10.52 on 9 and 730 DF,  p-value: 2.076e-15
+
+
+> ## 3 Father Regression Model
+> dadmod <- lm(pavisit2 ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age + marriedB + educ  .... [TRUNCATED] 
+
+> summary(dadmod)
+
+Call:
+lm(formula = pavisit2 ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2135 -1.0948 -0.1058  1.0649  4.1562 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.2768102  0.5542132   7.717 8.81e-14 ***
+whiteB       0.2121104  0.3637786   0.583 0.560156    
+blackB       0.1282070  0.4097884   0.313 0.754542    
+diffcityB   -0.6507916  0.1817071  -3.582 0.000382 ***
+diffstateB  -1.3948332  0.1885011  -7.400 7.53e-13 ***
+femaleB     -0.3342894  0.1572753  -2.126 0.034129 *  
+age         -0.0004743  0.0087398  -0.054 0.956745    
+marriedB    -0.5606653  0.1771020  -3.166 0.001660 ** 
+educ        -0.0118981  0.0321054  -0.371 0.711127    
+RINCOM98    -0.0099877  0.0165032  -0.605 0.545372    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.534 on 419 degrees of freedom
+  (664 observations deleted due to missingness)
+Multiple R-squared:  0.1756,	Adjusted R-squared:  0.1579 
+F-statistic: 9.919 on 9 and 419 DF,  p-value: 7.799e-14
+
+
+> ## 4 Mother Regression Model
+> mommod <- lm(mavisit2 ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age + marriedB + educ  .... [TRUNCATED] 
+
+> summary(mommod)
+
+Call:
+lm(formula = mavisit2 ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.1458 -1.0351 -0.0391  0.9900  3.7033 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.936824   0.469104  10.524  < 2e-16 ***
+whiteB       0.284721   0.328600   0.866  0.38662    
+blackB       0.575807   0.359545   1.601  0.10985    
+diffcityB   -0.745413   0.148659  -5.014 7.22e-07 ***
+diffstateB  -1.752379   0.155206 -11.291  < 2e-16 ***
+femaleB      0.021574   0.126271   0.171  0.86440    
+age         -0.012603   0.006393  -1.971  0.04918 *  
+marriedB    -0.447796   0.145367  -3.080  0.00217 ** 
+educ        -0.009939   0.026002  -0.382  0.70244    
+RINCOM98    -0.004466   0.012627  -0.354  0.72371    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.422 on 542 degrees of freedom
+  (541 observations deleted due to missingness)
+Multiple R-squared:  0.269,	Adjusted R-squared:  0.2568 
+F-statistic: 22.16 on 9 and 542 DF,  p-value: < 2.2e-16
+
+
+> ## 5 Sibling Regression Model
+> sibmod <- lm(sibvisit2 ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age + marriedB + edu .... [TRUNCATED] 
+
+> summary(sibmod)
+
+Call:
+lm(formula = sibvisit2 ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.3998 -1.0687 -0.0070  0.9765  3.7954 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  5.104097   0.424809  12.015  < 2e-16 ***
+whiteB      -0.163977   0.303218  -0.541  0.58884    
+blackB       0.355764   0.332286   1.071  0.28473    
+diffcityB   -0.238491   0.139574  -1.709  0.08800 .  
+diffstateB  -1.021028   0.143867  -7.097 3.45e-12 ***
+femaleB     -0.029566   0.117485  -0.252  0.80139    
+age         -0.016691   0.005101  -3.272  0.00113 ** 
+marriedB    -0.436230   0.140796  -3.098  0.00203 ** 
+educ        -0.043611   0.022472  -1.941  0.05274 .  
+RINCOM98     0.002579   0.011429   0.226  0.82151    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.431 on 630 degrees of freedom
+  (453 observations deleted due to missingness)
+Multiple R-squared:  0.1904,	Adjusted R-squared:  0.1789 
+F-statistic: 16.46 on 9 and 630 DF,  p-value: < 2.2e-16
+
+
+> ## 6 Adult Child Regression Model
+> kidmod <- lm(kidvisit2 ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age + marriedB + .... [TRUNCATED] 
+
+> summary(kidmod)
+
+Call:
+lm(formula = kidvisit2 ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.7108 -1.3722  0.3812  1.4124  2.5123 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  5.278867   1.137006   4.643  5.8e-06 ***
+whiteB      -0.719946   0.836217  -0.861  0.39017    
+blackB      -0.521530   0.883433  -0.590  0.55554    
+diffcityB   -0.254525   0.264255  -0.963  0.33648    
+diffstateB  -0.779131   0.260321  -2.993  0.00307 ** 
+femaleB      0.375249   0.225678   1.663  0.09773 .  
+age         -0.003401   0.012033  -0.283  0.77769    
+marriedB    -0.191531   0.593048  -0.323  0.74702    
+educ        -0.006165   0.041087  -0.150  0.88086    
+RINCOM98     0.012373   0.020783   0.595  0.55221    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.613 on 228 degrees of freedom
+  (855 observations deleted due to missingness)
+Multiple R-squared:  0.06388,	Adjusted R-squared:  0.02693 
+F-statistic: 1.729 on 9 and 228 DF,  p-value: 0.08355
+
+
+> ## 7 Aunt/Uncle Regression Model
+> uncmod <- lm(uncaunts2 ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age + marriedB +  .... [TRUNCATED] 
+
+> summary(uncmod)
+
+Call:
+lm(formula = uncaunts2 ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.4277 -0.6281 -0.2922  0.4972  1.6936 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  2.360404   0.222427  10.612  < 2e-16 ***
+whiteB      -0.148724   0.162712  -0.914 0.361030    
+blackB       0.221788   0.177787   1.247 0.212654    
+diffcityB   -0.179785   0.071806  -2.504 0.012525 *  
+diffstateB  -0.243586   0.072185  -3.374 0.000782 ***
+femaleB     -0.001243   0.060246  -0.021 0.983544    
+age         -0.006206   0.002690  -2.307 0.021342 *  
+marriedB    -0.072486   0.070129  -1.034 0.301695    
+educ        -0.001166   0.011590  -0.101 0.919882    
+RINCOM98    -0.008937   0.005890  -1.517 0.129698    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7553 on 669 degrees of freedom
+  (414 observations deleted due to missingness)
+Multiple R-squared:  0.09177,	Adjusted R-squared:  0.07955 
+F-statistic: 7.511 on 9 and 669 DF,  p-value: 1.629e-10
+
+
+> ## 8 Nephew/Nice Regression Model
+> nepmod <- lm(niecenep2 ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age + marriedB + .... [TRUNCATED] 
+
+> summary(nepmod)
+
+Call:
+lm(formula = niecenep2 ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.54952 -0.83401 -0.00354  0.84494  1.40717 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  2.513313   0.258657   9.717  < 2e-16 ***
+whiteB      -0.319619   0.192337  -1.662  0.09706 .  
+blackB       0.040805   0.209131   0.195  0.84537    
+diffcityB   -0.022061   0.082100  -0.269  0.78824    
+diffstateB  -0.260845   0.082712  -3.154  0.00169 ** 
+femaleB      0.110549   0.068572   1.612  0.10743    
+age         -0.005474   0.002838  -1.929  0.05421 .  
+marriedB    -0.005715   0.083245  -0.069  0.94529    
+educ        -0.005003   0.013217  -0.379  0.70517    
+RINCOM98     0.009966   0.006591   1.512  0.13104    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8309 on 625 degrees of freedom
+  (458 observations deleted due to missingness)
+Multiple R-squared:  0.06178,	Adjusted R-squared:  0.04827 
+F-statistic: 4.573 on 9 and 625 DF,  p-value: 7.352e-06
+
+
+> ## 9 Cousins Regression Model
+> cousmod <- lm(cousins2 ~ whiteB + blackB + diffcityB + diffstateB + femaleB + 
++                age + marriedB + edu .... [TRUNCATED] 
+
+> summary(cousmod)
+
+Call:
+lm(formula = cousins2 ~ whiteB + blackB + diffcityB + diffstateB + 
+    femaleB + age + marriedB + educ + RINCOM98, data = family12)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.4451 -0.6379 -0.3696  0.5629  1.6724 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  2.4216394  0.2253242  10.747  < 2e-16 ***
+whiteB      -0.3493700  0.1681631  -2.078 0.038106 *  
+blackB       0.1606790  0.1829199   0.878 0.380016    
+diffcityB   -0.1606056  0.0722682  -2.222 0.026572 *  
+diffstateB  -0.2795336  0.0720447  -3.880 0.000114 ***
+femaleB     -0.0631542  0.0603378  -1.047 0.295602    
+age         -0.0034628  0.0025087  -1.380 0.167925    
+marriedB    -0.0379714  0.0711394  -0.534 0.593673    
+educ        -0.0063830  0.0114157  -0.559 0.576239    
+RINCOM98    -0.0008202  0.0058041  -0.141 0.887657    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7814 on 714 degrees of freedom
+  (369 observations deleted due to missingness)
+Multiple R-squared:  0.09363,	Adjusted R-squared:  0.08221 
+F-statistic: 8.196 on 9 and 714 DF,  p-value: 1.196e-11
+
+
+> # close log
+> sink()

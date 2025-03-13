@@ -1,0 +1,189 @@
+
+> # R version
+> R.version.string
+[1] "R version 4.2.2 (2022-10-31 ucrt)"
+
+> ## Warning: Must install tidyverse package prior to running code
+> 
+> #### Project Code ####
+> 
+> ## 0 Load data and check metadata
+> 
+> family07 <- .... [TRUNCATED] 
+
+> comment(family07)
+[1] "Dataset with select observations and variables\n/ arakes-repl-data1.R / AMR / 2024-01-14"
+[2] "Updated data with dummy variables / arakes-repl-data2.R / AMR / 2024-01-16"              
+
+> library(tidyverse)
+
+> ## 1 Recode kidvisit variable
+> 
+> family07$kidvisit2 <- ifelse(family07$kidvisit == '1', 6,
++                              ifelse(family07$kidvisit .... [TRUNCATED] 
+
+> ## 2 Recode sibvisit variable
+> 
+> family07$sibvisit2 <- ifelse(family07$sibvisit == '1', 6,
++                              ifelse(family07$sibvisit .... [TRUNCATED] 
+
+> ## 3 Recode pavisit1 variable
+> 
+> family07$pavisit2 <- ifelse(family07$PAVISIT1 == '1', 6,
++                              ifelse(family07$PAVISIT1  .... [TRUNCATED] 
+
+> ## 4 Recode mavisit1 variable
+> 
+> family07$mavisit2 <- ifelse(family07$MAVISIT1 == '1', 6,
++                             ifelse(family07$MAVISIT1 = .... [TRUNCATED] 
+
+> ## 5 Recode cousins variable
+> 
+> family07$cousins2 <- ifelse(family07$cousins == '1', 3,
++                              ifelse(family07$cousins ==  .... [TRUNCATED] 
+
+> ## 6 Recode niecenep variable
+> 
+> family07$niecenep2 <- ifelse(family07$niecenep == '1', 3,
++                             ifelse(family07$niecenep  .... [TRUNCATED] 
+
+> ## 7 Recode uncaunts variable
+> 
+> family07$uncaunts2 <- ifelse(family07$uncaunts == '1', 3,
++                              ifelse(family07$uncaunts .... [TRUNCATED] 
+
+> ## 8 Internal Documentation
+> comment(family07$kidvisit2) <-
++   "New scale for kidvisit variable / arakes-repl-data3.R / AMR / 2024-01-16"
+
+> comment(family07$sibvisit2) <-
++   "New scale for sibvisit variable / arakes-repl-data3.R / AMR / 2024-01-16"
+
+> comment(family07$pavisit2) <-
++   "New scale for pavisit1 variable / arakes-repl-data3.R / AMR / 2024-01-16"
+
+> comment(family07$mavisit2) <-
++   "New scale for mavisit1 variable / arakes-repl-data3.R / AMR / 2024-01-16"
+
+> comment(family07$cousins2) <-
++   "New scale for cousins variable / arakes-repl-data3.R / AMR / 2024-01-16"
+
+> comment(family07$niecenep2) <-
++   "New scale for niecenep variable / arakes-repl-data3.R / AMR / 2024-01-16"
+
+> comment(family07$uncaunts2) <-
++   "New scale for uncaunts variable / arakes-repl-data3.R / AMR / 2024-01-16"
+
+> comment(family07) <- c(comment(family07), 
++                        "Updated data with family variables recoded / arakes-repl-data3.R / AMR / 2024-0 ..." ... [TRUNCATED] 
+
+> ## 9 Run Diagnostics comparing original family variable to recoded family variable
+> table(family07$kidvisit2, useNA = "ifany")
+
+   1    2    3    4    5    6 <NA> 
+  21   63   58   69   79  136 2205 
+
+> table(family07$kidvisit, useNA = "ifany")
+
+  .i   .n    1    2    3    4    5    6    7 
+2197    8   74   62   79   69   58   63   21 
+
+> table(family07$sibvisit2, useNA = "ifany")
+
+   1    2    3    4    5    6 <NA> 
+ 181  219  160  155  107   89 1720 
+
+> table(family07$sibvisit, useNA = "ifany")
+
+  .i   .n    1    2    3    4    5    6    7 
+1715    5   24   65  107  155  160  219  181 
+
+> table(family07$pavisit2, useNA = "ifany")
+
+   1    2    3    4    5    6 <NA> 
+ 130  101   91   87   59   67 2096 
+
+> table(family07$PAVISIT1, useNA = "ifany")
+
+  .i   .n    1   10    2    3    4    5    6    7    8    9 
+1535    3   28   25   39   59   87   91  101   77   53  533 
+
+> table(family07$mavisit2, useNA = "ifany")
+
+   1    2    3    4    5    6 <NA> 
+  95  111  105  135  126  128 1931 
+
+> table(family07$MAVISIT1, useNA = "ifany")
+
+  .i   .n    1   10    2    3    4    5    6    7    8    9 
+1535    2   59    1   69  126  135  105  111   76   19  393 
+
+> table(family07$cousins2, useNA = "ifany")
+
+   1    2    3 <NA> 
+ 561  264  213 1593 
+
+> table(family07$cousins, useNA = "ifany")
+
+  .d   .i   .n    1    2    3    4 
+   2 1535    3  213  264  561   53 
+
+> table(family07$niecenep2, useNA = "ifany")
+
+   1    2    3 <NA> 
+ 343  256  341 1691 
+
+> table(family07$niecenep, useNA = "ifany")
+
+  .d   .i   .n    1    2    3    4 
+   4 1535    3  341  256  343  149 
+
+> table(family07$uncaunts2, useNA = "ifany")
+
+   1    2    3 <NA> 
+ 469  258  182 1722 
+
+> table(family07$uncaunts, useNA = "ifany")
+
+  .i   .n    1    2    3    4 
+1535    4  182  258  469  183 
+
+> ## 10 Overall Descriptive Statistics to compare to original sample
+> 
+> summary(family07$year)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   2002    2002    2002    2002    2002    2002 
+
+> min(family07$age)
+[1] "18"
+
+> summary(family07$whiteB)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  1.0000  1.0000  0.8202  1.0000  1.0000 
+
+> summary(family07$blackB)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  0.0000  0.1517  0.0000  1.0000 
+
+> summary(family07$femaleB)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  1.0000  0.5568  1.0000  1.0000 
+
+> summary(family07$marriedB)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  1.0000  0.7469  1.0000  1.0000 
+
+> summary(family07$diffcityB)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   0.000   0.000   0.255   1.000   1.000 
+
+> summary(family07$diffstateB)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   0.000   0.000   0.317   1.000   1.000 
+
+> ## 11 Save new dataset
+> 
+> saveRDS(family07, "arakes-repl-data4.RDS") # as RDS
+
+> # close log
+> sink()
