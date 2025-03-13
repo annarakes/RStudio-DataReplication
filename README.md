@@ -5,7 +5,7 @@ Comeau’s “Race/Ethnicity and Family Contact: Toward a Behavioral Measure of 
 by Anna Rakes. The following documentation was created using R Studio version 4.2.2.
 ## Documentation Needed
 To reproduce the results the GSS dataset, titled gss7218_R1.RDS, must be downloaded into the
-same folder as the following documents, located in the /Script Files folder. The following
+same folder as the following documents, located in the work folder. The following
 documents must be run in this exact order:
 1. arakes-repl-data1.R: selected only needed observations and variables
 2. arakes-repl-data2.R: created dummy variables for race, sex, marriage, and geo mobility
