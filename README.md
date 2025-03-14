@@ -1,6 +1,6 @@
 # R-Studio Data Replication Project
 ## Author: Anna Rakes
-This project was developed by Anna Rakes for the Methods for Data Analytics course at Elon University. This document contains necessary information pertaining to the replication of Joseph
+This project was developed by Anna Rakes for the Methods for Data Analytics course at Elon University. I was This document contains necessary information pertaining to the replication of Joseph
 Comeau’s “Race/Ethnicity and Family Contact: Toward a Behavioral Measure of Familialism”
 by Anna Rakes. The following documentation was created using R Studio version 4.2.2.
 ## Documentation Needed
